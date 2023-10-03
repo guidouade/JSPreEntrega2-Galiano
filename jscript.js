@@ -55,7 +55,7 @@ while (true) {
             break;
         case "3":
             console.log("Saliendo del simulador.");
-            break;
+            return;
         default:
             alert("Opción inválida. Por favor, seleccione una opción válida.");
     }
