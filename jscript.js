@@ -6,38 +6,44 @@ function crearPersona(nombre, edad) {
     }
 }
 
-// Función para ingresar edades y calcular el promedio
-function calcularPromedio() {
-    let sumaEdades = 0;
-    let contadorPersonas = [];
+// Array para almacenar las personas
+const personas = [];
 
-    while (true) {
-        let edad = prompt("Ingresa la edad de la persona (Si deseas calcular el promedio, escribe 'fin'):");
-        if (edad.toLowerCase() === "fin") { //toLowerCase devuelve el valor en minúsculas de la cadena que realiza la llamada
-            break; // Si el usuario introduce fin, termina el bucle
-        }
+// Función para crear una persona y agregarla al array
+function agregarPersona() {
+    let nombre = prompt("Ingresa el nombre de la persona:");
+    let edad = prompt("Ingresa la edad de la persona:");
 
-        edad = parseInt(edad);
-        if (!isNaN(edad) && edad >= 0) { //isNaN intenta convertir el parámetro pasado a un número.
-            sumaEdades += edad; //Agrega una edad al contador de sumaEdades
-            contadorPersonas++; //Agrega una persona màs al contador de las personas
-        } else {
-            alert("Por favor, ingresa una edad válida.");
-        }
-    }
+    edad = parseInt(edad);
 
-    if (contadorPersonas === 0) { //Si el contador de personas es igual a 0
-        alert("No se ingresaron edades válidas."); //Se imprimirà un alert diciendo que no se ingresaron edades vàlidas
+    if (!isNaN(edad) && edad >= 0) {
+        const persona = crearPersona(nombre, edad);
+        personas.push(persona);
+        alert("Persona agregada exitosamente.");
     } else {
-        const promedio = sumaEdades / contadorPersonas; //Si se ingresò por lo menos una persona, harà la divisiòn de la suma de las edades por la cantidad de personas que ingresaron edades
-        alert("El promedio de edades de las " + contadorPersonas + " personas registradas es: " + promedio);
+        alert("Por favor, ingresa una edad válida.");
+    }
+}
+
+// Función para calcular el promedio de edades de las personas
+function calcularEdadPromedio() {
+    if (personas.length === 0) {
+        alert("No se han agregado personas.");
+    } else {
+        let sumaEdades = 0;
+
+        for (const persona of personas) {
+            sumaEdades += persona.edad;
+        }
+
+        const promedio = sumaEdades / personas.length;
+        alert("El promedio de edades de las " + personas.length + " personas registradas es: " + promedio.toFixed(2));
     }
 }
 
 // Llamamos a la función para comenzar el simulador
-calcularPromedio();
+alert("Este simulador te ayudará a calcular el promedio de edad de las personas");
 
-alert ("Este simulador te ayudará a calcular el promedio de edad de las personas")
 while (true) {
     let opcion = prompt("Seleccione una opción:\n1. Agregar persona\n2. Calcular edad promedio\n3. Salir");
     switch (opcion) {
@@ -49,8 +55,8 @@ while (true) {
             break;
         case "3":
             console.log("Saliendo del simulador.");
-            return;
+            break;
         default:
-            console.log("Opción inválida. Por favor, seleccione una opción válida.");
+            alert("Opción inválida. Por favor, seleccione una opción válida.");
     }
 }
